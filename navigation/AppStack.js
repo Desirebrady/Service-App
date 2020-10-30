@@ -4,32 +4,18 @@ import HomeScreen from '../screens/HomeScreen';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ProfileScreen from '../screens/ProfileScreen';
-import { Icon } from 'react-native-vector-icons/Ionicons';
-import { Button } from 'react-native';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+// const Tab = createBottomTabNavigator();
 
 
 const HomeStackScreen = ({ navigation }) => (
-	<HomeStack.Navigator screenOptions={{
-		headerStyle: {
-			backgroundColor: '#009387'
-		},
-		headerTintColor: '#fff',
-		headerTitleStyle: {
-			fontWeight: 'bold'
-		}
-	}}
+	<HomeStack.Navigator
 	>
-		<HomeStack.Screen name='Home' component={HomeScreen} options={{
-			title: 'Overview',
-			headerLeft: () => (
-				<Button name='ios-menu' size={25}
-					backgroundColor='#009387'
-					options={() => navigation.openDrawer()}
-				/>
-			)
-		}} />
+		<HomeStack.Screen name="Home"
+			component={HomeScreen}
+			options={{ header: () => true }} />
 
 
 	</HomeStack.Navigator>
@@ -38,7 +24,7 @@ const HomeStackScreen = ({ navigation }) => (
 const AppStack = () => {
 	return (
 		<Drawer.Navigator>
-			<Drawer.Screen name='Home' component={HomeScreen} />
+			<Drawer.Screen name='Home' component={HomeStackScreen} />
 			<Drawer.Screen name='Profile' component={ProfileScreen} />
 		</Drawer.Navigator>
 	);
