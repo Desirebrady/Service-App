@@ -1,67 +1,77 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import FormButton from '../components/FormButton';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import PostCard from '../components/PostCard';
 import { AuthContext } from '../navigation/AuthProvider';
+import {
+	Container,
+} from '../styles/HomeStyle';
+import fb from "../config/InitFirebase";
+const Test = []
+var i = 0
+const usersCollection = fb.firestore().collection("posts").get()
+	.then(function (querySnapshot) {
+		querySnapshot.forEach(function (doc) {
+			// doc.data() is never undefined for query doc snapshots
+			var post = {
+				id: i++,
+				userName: doc.data("userName"),
+				post: doc.data("post")
+			}
+			console.log(doc.data());
+			Test.push(post);
+		});
+	});
+
+const Posts = [
+	{
+		id: '1',
+		userName: 'Jenny Doe',
+		userImg: require('../assets/favicon.png'),
+		postTime: '4 mins ago',
+		post: 'Hey there, this is my test for a post of my service app in React Native.',
+	},
+	{
+		id: '2',
+		userName: 'John Doe',
+		userImg: require('../assets/favicon.png'),
+		postTime: '2 hours ago',
+		post: 'Hey there, this is my test for a post of my service app in React Native.',
+	},
+	{
+		id: '3',
+		userName: 'Ken William',
+		userImg: require('../assets/favicon.png'),
+		postTime: '1 hours ago',
+		post: 'Hey there, this is my test for a post of my service app in React Native.',
+	},
+	{
+
+		id: '4',
+		userName: 'Selina Paul',
+		userImg: require('../assets/favicon.png'),
+		postTime: '1 day ago',
+		post: 'Hey there, this is my test for a post of my service app in React Native.',
+	},
+	{
+		id: '5',
+		userName: 'Christy Alex',
+		userImg: require('../assets/favicon.png'),
+		postTime: '2 days ago',
+		post: 'Hey there, this is my test for a post of my service app in React Native.',
+	},
+];
 
 const HomeScreen = () => {
 	const { user, logout } = useContext(AuthContext);
 	return (
-		<View style={styles.container}>
-			<View style={styles.card}>
-				<View style={styles.cardHeader}>
-					<View style={styles.headerLeft}>
-						<Image
-							style={styles.userImage}
-							source={{
-								uri: 'https://reactnative.dev/img/tiny_logo.png',
-							}}
-						/>
-						<Text style={styles.userName}>{user.uid}</Text>
-					</View>
-					<View style={styles.headerLeft}></View>
-				</View>
-			</View>
-			{/* <Text style={styles.text}>Welcome {user.uid}</Text> */}
-		</View>
+		<Container>
+			<FlatList
+				data={Posts}
+				renderItem={({ item }) => <PostCard item={item} />}
+				keyExtractor={item => item.id}
+				showsVerticalScrollIndicator={false}
+			/>
+		</Container>
 	);
-}
-
+};
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-	container: {
-		backgroundColor: '#ddd'
-	},
-	text: {
-
-		color: '#333333'
-	},
-	card: {
-		backgroundColor: '#fff',
-		padding: 5,
-		margin: 5,
-		borderRadius: 10
-	},
-	cardHeader: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-	},
-	headerRight: {
-		flexDirection: 'row',
-	}
-	,
-	headerLeft: {
-		flexDirection: 'row',
-	}
-	,
-	userImage: {
-		width: 50,
-		height: 50,
-		borderRadius: 50 / 2
-	}
-	,
-	userName: {
-		// marginTop: 15,
-		marginLeft: 10
-	}
-});

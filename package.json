@@ -13,6 +13,7 @@
     "@react-native-firebase/app": "^8.4.5",
     "@react-native-firebase/auth": "^9.3.0",
     "@react-native-firebase/firestore": "^7.8.6",
+    "@react-navigation/bottom-tabs": "^5.10.2",
     "@react-navigation/drawer": "^5.9.3",
     "@react-navigation/native": "^5.7.6",
     "@react-navigation/stack": "^5.9.3",
@@ -28,7 +29,8 @@
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
     "react-native-vector-icons": "^7.1.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
